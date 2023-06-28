@@ -47,7 +47,9 @@ void setup() {
   // Mengambil dan mempublikasikan ID chip
   char chipId[12];
   sprintf(chipId, "%06X", ESP.getChipId());
-  client.publish(mqttTopic, chipId);
+  String chipIdStr = chipId;
+  String msg = "{\"espId\":\"" + chipIdStr + "\"}";
+  client.publish(mqttTopic, msg.c_str());
 
   //Subcribe ke URI Chip
   String topic = "esp/" + String(chipId) + "/response";
